@@ -7,6 +7,11 @@ app = Flask(__name__)
 
 
 @app.route("/")
+def home():
+    return render_template("home.html")
+
+
+@app.route("/characters")
 def get_list_characters_page():
     url = "https://rickandmortyapi.com/api/character/"
     response = urllib.request.urlopen(url)
