@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import urllib.request, json
 
 app = Flask(__name__)
@@ -13,11 +13,17 @@ def home():
 
 @app.route("/characters")
 def get_list_characters_page():
-    url = "https://rickandmortyapi.com/api/character/"
+    page = request.args.get("page", 1, type=int)
+    url = f"https://rickandmortyapi.com/api/character/?page={page}"
     response = urllib.request.urlopen(url)
     data = response.read()
-    dict = json.loads(data)
-    return render_template("characters.html", characters=dict["results"])
+    character_data = json.loads(data)
+    return render_template(
+        "characters.html",
+        characters=character_data["results"],
+        info=character_data["info"],
+        current_page=page,
+    )
 
 
 @app.route("/profile/<id>")
@@ -29,17 +35,16 @@ def get_profile(id):
     return render_template("profile.html", profile=dict)
 
 
-@app.route("/lista")
-def get_list_elements():
-    url = "https://rickandmortyapi.com/api/character/"
+@app.route("/episodes")
+def get_list_episodes_page():
+    page = request.args.get("page", 1, type=int)
+    url = f"https://rickandmortyapi.com/api/episode/?page={page}"
     response = urllib.request.urlopen(url)
-    characters = response.read()
-    data = json.loads(characters)
-
-    characters = []
-
-    for character in data["results"]:
-        character = {"name": character["name"], "status": character["status"]}
-        characters.append(character)
-    return {"characters": characters}
-
+    data = response.read()
+    episodes_data = json.loads(data)
+    return render_template(
+        "episodes.html",
+        episodes=episodes_data["results"],
+        info=episodes_data["info"],
+        current_page=page,
+    )

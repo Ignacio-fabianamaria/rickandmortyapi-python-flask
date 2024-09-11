@@ -1,15 +1,25 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <div class="row">
-    {% for character in characters %}
-      <div class="col-sm-3 col-6">
-        <img src="{{ character.image }}" alt="{{ character.name }}" class="img-fluid img-thumbnail">
-        <h3 class="h5">{{ character.name }}</h3> 
-        <p>
-          <a href="{{ url_for('get_profile', id=character.id) }}" class="btn btn-primary">Ver Perfil</a>
-        </p>
-      </div>
-    {% endfor %}
-  </div>
+<div class="pagination">
+  {% if info.prev %}
+    <a href="{{ url_for('get_list_characters_page', page=current_page-1) }}" class="btn btn-secondary">Página Anterior</a>
+  {% endif %}
+  <span>Página {{ current_page }} de {{ info.pages }}</span>
+  {% if info.next %}
+    <a href="{{ url_for('get_list_characters_page', page=current_page+1) }}" class="btn btn-secondary">Próxima Página</a>
+  {% endif %}
+</div>
+<div class="row">
+  {% for character in characters %}
+    <div class="col-sm-3 col-6">
+      <img src="{{ character.image }}" alt="{{ character.name }}" class="img-fluid img-thumbnail">
+      <h3 class="h5">{{ character.name }}</h3> 
+      <p>
+        <a href="{{ url_for('get_profile', id=character.id) }}" class="btn btn-primary">Ver Perfil</a>
+      </p>
+    </div>
+  {% endfor %}
+</div>
 {% endblock %}
+

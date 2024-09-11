@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>Lista de Episódios</h1>
+  <div class="row">
+    {% for episode in episodes %}
+      <div class="col-sm-3 col-6 m-1">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ episode.name }}</h5>
+            <p class="card-text">Episódio: {{ episode.episode }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+<div class="pagination">
+    {% if info.prev %}
+      <a href="{{ url_for('get_list_episodes_page', page=current_page-1) }}" class="btn btn-secondary">Página Anterior</a>
+    {% endif %}
+    <span>Página {{ current_page }} de {{ info.pages }}</span>
+    {% if info.next %}
+      <a href="{{ url_for('get_list_episodes_page', page=current_page+1) }}" class="btn btn-secondary">Próxima Página</a>
+    {% endif %}
+</div>
+{% endblock %}
