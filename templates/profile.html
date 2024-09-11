@@ -1,0 +1,23 @@
+
+     {% extends "layout.html" %}
+
+     {% block content %}
+       <div class="row">
+        <div class="col-sm-3 col-6">
+          <h1 class="h5">{{profile.name}}</h1>
+          <img src="{{profile.image}}"" alt="{{profile.name}}"" class="img-fluid img-thumbnail"
+        </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-9 col-6">
+              <h2 class="h6">Episódios:</h2>
+              <ul>
+                {% for episode_url in profile.episode %}
+                  {% set episode_number = episode_url.split('/')[-1] %}
+                  <li>Episódio {{ episode_number }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+              </div>
+          {% endblock%}
+   
