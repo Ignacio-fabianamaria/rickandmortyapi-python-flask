@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container pt-2">
+    <div class="col-sm-9 col-12 pt-2">
+      <h5 class="h5">Nome do Episódio: {{ episode.name }}</h5>
+      <h5 class="h5">Data de Estréia: {{ episode.air_date }}</h5>
+      <h5 class="h5">Número do Episódio: {{ episode.episode }}</h5>
+    </div>
+    <div class="col-sm-9 col-12 pt-2">
+        <h5 class="h5">Personagens do Episódio {{ episode.episode }}</h5>
+        <div class="row">
+          {% for character in characters %}
+            <div class="col-sm-3 col-6 m-1">
+              <div class="card">
+                <img src="{{ character.image }}" class="card-img-top" alt="{{ character.name }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ character.name }}</h5>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock %}
